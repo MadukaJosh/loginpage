@@ -2,19 +2,15 @@
 var objPeople = [
 	{
 		username: 'sam',
-		password: 'password25'
-		
-		
+		password: 'sam25'
 	},
 	{
 		username: 'matt',
-		password: 'password88'
-		
+		password: 'matt25'
 	},
 	{
 		username: 'chris',
-		password: 'password3'
-		
+		password: 'chris25'
 	}
 ]
 
@@ -26,14 +22,16 @@ function registerUser() {
 	var registerUsername = document.getElementById('newUsername').value;
 	// store new users password
 	var registerPassword = document.getElementById('newPassword').value
+	// store new email 
+	var registerEmail = document.getElementById('newEmail').value
+	// store message to display
+	var messanger = document.getElementById('msg');
 	
 
-	var messanger = document.getElementById('msg');
 	// store new user data in an object
 	var newUser = {
 		username: registerUsername,
 		password: registerPassword
-		
 	}
 	// loop throught people array to see if the username is taken, or password to short
 	for(var i = 0; i < objPeople.length; i++) {
@@ -46,29 +44,28 @@ function registerUser() {
 		// check if new password is 8 characters or more
 		} else if (registerPassword.length < 5) {
 			// alert user that the password is to short
-			alert('That is to short, include 5 or more characters')
+			alert('Password is to short, include 5 or more characters')
 			// stop the statement if result is found true
 			break
-		} else if (registerUsername =="")
-		alert ('Hey!, Please insert a Username')
-	}
-
-	// push new object to the people array
+		} 
+	}  if (registerUsername =="")
+	alert ('Hey!, Please insert a Username');
+else if(registerUsername && registerPassword == ""){
+	messanger.innerHTML = 'SUCCESSFULLY UNREGISTERED';	
+	}else{
+	messanger.innerHTML = 'SUCCESSFULLY REGISTERED';
 	objPeople.push(newUser)
+	}
 	
-	//Message to show that you've registed
-	messanger.innerHTML = 'SUCCESSFULLY REGISTERED, Now LOG IN';
-	alert('Youre now Registered, Kindly Log in')
-	
-
 	//CLEARS INPUT
 	document.getElementById('newUsername').value = '';
 	document.getElementById('newPassword').value = '';
-	
-
-	
+	document.getElementById('newEmail').value == '';
 	// console the updated people array
 	console.log(objPeople)
+// push new object to the people array
+
+
 }
 
 
@@ -80,30 +77,21 @@ function login() {
 const username = document.getElementById('username').value;
 // retreive data from password and store in password variable
 const password = document.getElementById('password').value;	
-//retreive data from password and store in email variable
 
 var formdata = {
 	username: username,
 	password: password
 
 }
-    //console.log(JSON.stringify(formdata))
-
-	if(objPeople.some( person => person.username === formdata.username)){
+	//console.log(JSON.stringify(formdata))
+	
+// To compare if the username or password to reg is the same as to login
+	if(objPeople.some( person => person.username === formdata.username && person.password === formdata.password)){
 		alert ('Hea, You are now logged in')
 		console.log('Its the same');
 	} else {
-
-		alert('Try Signin up with the right paramters, Thanks!')
-		console.log('Its not the same');
+		alert('incorrect Password Username or Password')
+		console.log('You are not logged in. Try using the right Parameters')
 	}
-	
-	//CLEARS INPUT
-	document.getElementById('username').value = '';
-	document.getElementById('password').value = '';
-		
 
-					
-
-	
 }
